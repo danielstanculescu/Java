@@ -4,13 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+//import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
 
-@Entity
+//@Document
 public class SoftwareEngineer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /*
+    @org.springframework.data.annotation.Id
     private Integer id;
     private String name;
     private String techStack;
@@ -18,8 +19,8 @@ public class SoftwareEngineer {
     public SoftwareEngineer() {
     }
 
-    public SoftwareEngineer(Integer id, String name, String techStack) {
-        this.id = id;
+    public SoftwareEngineer(String name, String techStack) {
+        super();
         this.name = name;
         this.techStack = techStack;
     }
@@ -60,6 +61,8 @@ public class SoftwareEngineer {
     public int hashCode() {
         return Objects.hash(id, name, techStack);
     }
+
+     */
 }
 
 

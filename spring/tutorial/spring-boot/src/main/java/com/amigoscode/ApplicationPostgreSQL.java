@@ -7,15 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class Application {
+public class ApplicationPostgreSQL {
+    public static void main(String[] args) {
+        SpringApplication.run(ApplicationPostgreSQL.class, args);
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
-
-	@GetMapping
-	public String helloWorld(){
-		return "Hello World Spring Boot";
-	}
-
+  //  @GetMapping
+    public String helloWorld(){
+        return "Hello World Spring Boot";
+    }
 }
