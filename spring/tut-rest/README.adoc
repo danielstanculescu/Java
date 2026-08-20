@@ -1,0 +1,9 @@
+This concludes our tutorial on how to build RESTful services using Spring. Each section of this tutorial is managed as a separate subproject in a single github repo:
+
+nonrest — Simple Spring MVC app with no hypermedia
+
+rest — Spring MVC + Spring HATEOAS app with HAL representations of each resource
+
+evolution — REST app where a field is evolved but old data is retained for backward compatibility
+
+links — REST app where conditional links are used to signal valid state changes to clients
