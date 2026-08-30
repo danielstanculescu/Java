@@ -17,7 +17,7 @@ export class AppComponent {
   private router = inject(Router);
 
   constructor() {
-    this.app.authenticate(undefined, undefined);
+    this.app.authenticate({ username: '', password: '' }, undefined);
   }
 
   logout(): void {

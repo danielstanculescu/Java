@@ -4,10 +4,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,16 +60,27 @@ public class UiApplication {
   protected static class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-      http
-        .httpBasic(basic -> basic
+
+        http
+          .httpBasic(basic -> basic
           .securityContextRepository(new HttpSessionSecurityContextRepository())
         )
         .authorizeHttpRequests(authorize -> authorize
           .requestMatchers("/index.html", "/", "/home", "/login", "/*.js", "/*.css", "/*.ico").permitAll()
           .anyRequest().authenticated()
         )
-        .csrf(csrf -> csrf
-          .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+
+
+          //.csrf(AbstractHttpConfigurer::disable);
+
+          // .csrf(csrf -> csrf
+          //.csrfTokenRepository(new HttpSessionCsrfTokenRepository()));
+
+          .csrf(csrf -> csrf
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+
+
+
       return http.build();
     }
   }
