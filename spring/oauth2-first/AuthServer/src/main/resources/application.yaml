@@ -1,0 +1,10 @@
+server:
+  port: 9000
+  servlet:
+    session:
+      cookie:
+        name: AUTH_JSESSIONID # 🛠️ Unique cookie for port 9000
+
+logging:
+  level:
+    org.springframework.security: TRACE
