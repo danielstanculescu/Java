@@ -1,0 +1,7 @@
+frontend-maven-plugin version : 2.0.1, which installs directly :
+    - nodeVersion : v24.20.0
+
+
+RUN : .\mvnw spring-boot:run
+DEBUG online: from client folder -> .\npm run watch
+Package : .\mvnw clean package
