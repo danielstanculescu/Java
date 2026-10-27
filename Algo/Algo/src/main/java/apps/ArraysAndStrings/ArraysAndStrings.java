@@ -27,4 +27,28 @@ public class ArraysAndStrings {
             return "The string " + s + " doesn't have all unique chars";
         }
     }
+
+    private static String reverse (String s){
+        StringBuilder result = new StringBuilder();
+
+        Character []tab = new Character[s.length() + 1];
+
+        for (int i = 0; i < s.length(); i++) {
+            tab[i] = s.charAt(i);
+        }
+
+        for (int i=s.length()-1; i>=0; i--){
+            result.append(tab[i]);
+        }
+
+        return result.toString();
+    }
+
+    public static String testReverse() {
+        String s = "Daniel";
+
+        String result = reverse(s);
+
+        return "The reverse string of " + s + " is " + result;
+    }
 }
