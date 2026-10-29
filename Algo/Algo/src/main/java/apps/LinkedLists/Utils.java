@@ -54,7 +54,7 @@ public class Utils {
         int kTh = 3;
         int[] test = new int[]{1,2,3,4,5,6,7,8,9,10};
         LinkedListNode head = createLinkedList(test);
-        LinkedListNode node  = Algos.findKth(kTh, head);
+        LinkedListNode node  = Algos.findKthSolution1(kTh, head);
         if(node != null)
             return "The " + kTh + " element in " + toStringFromArray(test) + " is " + node.data;
         else

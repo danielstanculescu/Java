@@ -47,7 +47,7 @@ public class Algos {
     }
 
     // Find the k-th to last element in a single linked list
-    public static LinkedListNode findKth (int k, LinkedListNode node){
+    public static LinkedListNode findKthSolution1 (int k, LinkedListNode node){
 
         LinkedListNode p1 = node;
         LinkedListNode p2 = node;
@@ -69,5 +69,34 @@ public class Algos {
         }
 
         return p1;
+    }
+
+    public static int findKthSolution2(int k, LinkedListNode node){
+        if(node == null){
+            return 0;
+        }
+
+        int i = findKthSolution2(k, node.next) + 1;
+        if (i == k){
+            System.out.println(node.data);
+        }
+        return i;
+    }
+
+    public static class IntWrapper{
+        public int value = 0;
+    }
+
+    public static LinkedListNode findKthSolution3(int k, IntWrapper i, LinkedListNode node){
+        if(node == null){
+            return null;
+        }
+
+        LinkedListNode current = findKthSolution3(k, i, node.next);
+        i.value = i.value + 1;
+        if (i.value == k){
+            return node;
+        }
+        return current;
     }
 }
