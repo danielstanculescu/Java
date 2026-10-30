@@ -1,16 +1,17 @@
 package utils;
 
-class Node<T>{
-    T data;
-    Node<T> next;
-
-    Node(T data){
-        this.data = data;
-        this.next = null;
-    }
-}
-
 public class LinkedList<T> {
+
+    static class Node<T>{
+        T data;
+        Node<T> next;
+
+        Node(T data){
+            this.data = data;
+            this.next = null;
+        }
+    }
+
     private Node<T> head;
     private int size;
 

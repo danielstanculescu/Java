@@ -23,7 +23,7 @@ public class Queue<T> {
             return null;
         }
         T item = (T)this.items[0];
-        for (int i = 0; i < this.size; i++) {
+        for (int i = 1; i < this.size; i++) {
             this.items[i-1] = this.items[i];
         }
         this.size--;
