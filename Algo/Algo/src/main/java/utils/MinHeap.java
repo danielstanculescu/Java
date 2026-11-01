@@ -8,6 +8,8 @@ each parent is greater than or equal to its children, while in a min-heap, each 
 
 ------*/
 
+import java.util.NoSuchElementException;
+
 public class MinHeap {
 
     private int[] table;
@@ -53,10 +55,10 @@ public class MinHeap {
     */
 
     public int pop() {
-        int []tab = table.clone();
+        int[] tab = table.clone();
 
         if (table.length == 0) {
-            return -1;
+            throw new NoSuchElementException("Heap is empty");
         }
 
         int ret = tab[0];
@@ -91,13 +93,11 @@ public class MinHeap {
         int c1Index = 2*i+1;
         int c2Index = 2*i+2;
 
-        int indexValue = tab[smallestIndex];
-
-        if (c1Index < n && c1Index < tab.length && tab[c1Index] < indexValue ) {
+        if (c1Index < n && c1Index < tab.length && tab[c1Index] < tab[smallestIndex] ) {
             smallestIndex = c1Index;
         }
 
-        if (c2Index < n && c2Index < tab.length && tab[c2Index] < smallestIndex) {
+        if (c2Index < n && c2Index < tab.length && tab[c2Index] < tab[smallestIndex]) {
             smallestIndex = c2Index;
         }
 
