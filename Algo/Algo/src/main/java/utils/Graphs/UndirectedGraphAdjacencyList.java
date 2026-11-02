@@ -1,5 +1,8 @@
 package utils.Graphs;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class UndirectedGraphAdjacencyList {
 
     // edges example : [[3,5],[5,7], [3,7]]
@@ -107,6 +110,127 @@ public class UndirectedGraphAdjacencyList {
         }
 
         return graph;
+    }
+
+    // edges example : [[3,5],[5,7], [3,7]]
+    // output : HashMap<Integer,ArrayList<Integer>>: 3: [5,7]; 5: [3,7]; 7: [5,3]
+    public HashMap<Integer, ArrayList<Integer>> createGraphSolution2(int[][] edges) {
+        HashMap<Integer, ArrayList<Integer>> adj = new HashMap<>();
+
+        for (int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+
+            adj.putIfAbsent(u, new ArrayList<>());
+            adj.putIfAbsent(v, new ArrayList<>());
+
+            adj.get(u).add(v);
+            adj.get(v).add(u);
+        }
+        return adj;
+    }
+
+    // edges example : [[3,5],[5,7], [3,7]]
+    // output : ArrayList<ArrayList<Integer>>: [[3,5,7], [5,3,7], [7,5,3]]
+    public ArrayList<ArrayList<Integer>> createGraphSolution3 (int V, int[][] edges) {
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>(V);
+        for (int i = 0; i < V; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        int uniqueCount = 0;
+
+        for (int[] edge : edges) {
+            int uRaw = edge[0];
+            int vRaw = edge[1];
+
+            int uMapped = -1;
+            for (int i = 0; i < uniqueCount; i++) {
+                if (adj.get(i).get(0) == uRaw) {
+                    uMapped = i;
+                    break;
+                }
+            }
+            if (uMapped == -1) {
+                uMapped = uniqueCount++;
+                adj.get(uMapped).add(uRaw);
+            }
+
+            int vMapped = -1;
+            for (int i = 0; i < uniqueCount; i++) {
+                if (adj.get(i).get(0) == vRaw) {
+                    vMapped = i;
+                    break;
+                }
+            }
+            if (vMapped == -1) {
+                vMapped = uniqueCount++;
+                adj.get(vMapped).add(vRaw);
+            }
+
+            adj.get(uMapped).add(vRaw);
+            adj.get(vMapped).add(uRaw);
+        }
+
+        return adj;
+    }
+
+    public int[][] createGraphSolution4(int V, int[][] edges) {
+        int[] uniqueNodes = new int[V];
+        int[] degrees = new int[V];
+        int uniqueCount = 0;
+
+        for (int[] edge : edges) {
+            int uRaw = edge[0];
+            int vRaw = edge[1];
+
+            int uMapped = -1;
+            for (int i = 0; i < uniqueCount; i++) {
+                if (uniqueNodes[i] == uRaw) { uMapped = i; break; }
+            }
+            if (uMapped == -1) {
+                uMapped = uniqueCount;
+                uniqueNodes[uniqueCount++] = uRaw;
+            }
+            degrees[uMapped]++;
+
+            int vMapped = -1;
+            for (int i = 0; i < uniqueCount; i++) {
+                if (uniqueNodes[i] == vRaw) { vMapped = i; break; }
+            }
+            if (vMapped == -1) {
+                vMapped = uniqueCount;
+                uniqueNodes[uniqueCount++] = vRaw;
+            }
+            degrees[vMapped]++;
+        }
+
+        int[][] adj = new int[V][];
+        for (int i = 0; i < V; i++) {
+            adj[i] = new int[1 + degrees[i]];
+            adj[i][0] = uniqueNodes[i];
+        }
+
+        int[] nextInsertIndex = new int[V];
+        for (int i = 0; i < V; i++) {
+            nextInsertIndex[i] = 1;
+        }
+
+        for (int[] edge : edges) {
+            int uRaw = edge[0];
+            int vRaw = edge[1];
+
+            int uMapped = -1, vMapped = -1;
+            for (int i = 0; i < V; i++) {
+                if (adj[i][0] == uRaw) uMapped = i;
+                if (adj[i][0] == vRaw) vMapped = i;
+            }
+
+            adj[uMapped][nextInsertIndex[uMapped]++] = vRaw;
+            adj[vMapped][nextInsertIndex[vMapped]++] = uRaw;
+        }
+
+        return adj;
     }
 
     private int[] resize(int[] tab) {
