@@ -8,13 +8,14 @@ public class MinHeapGeneric<T> {
     private int size;
     private Comparator<T> comparator;       // otherwise, use easier T extends Comparable<T>
 
-    public MinHeapGeneric(int initialCapacity, Comparator<T> comparator) {
+    public MinHeapGeneric(Comparator<T> comparator) {
         if (comparator == null){
             throw new IllegalArgumentException("Comparator cannot be null");
         }
 
         this.size = 0;
-        this.table = (T[]) new Object[initialCapacity];
+        this.table = (T[]) new Object[0];
+        this.comparator = comparator;
     }
 
     public int size() {
@@ -58,8 +59,8 @@ public class MinHeapGeneric<T> {
 
         heapify(tab, this.size, 0);
 
-        if (this.size == 0 || (((double) this.size / tab.length) <= 0.5)){
-            tab = resizeDown();
+        if (size >0 && ((double) this.size / tab.length) <= 0.5){
+            tab = resizeDown(tab);
         }
 
         this.table = tab.clone();
@@ -90,15 +91,14 @@ public class MinHeapGeneric<T> {
         }
     }
 
-    private T[] resizeDown() {
+    private T[] resizeDown(T[] tab) {
         T[] newTab;
-        T[] tab = this.table.clone();
 
         newTab = (T[]) new Object[this.size];
 
-        System.arraycopy(tab, 0, newTab, 0, tab.length);
-
-        this.table = newTab.clone();
+        for( int i = 0; i< newTab.length; i++) {
+            newTab[i] = tab[i];
+        }
 
         return newTab;
     }

@@ -1,5 +1,9 @@
 package apps.TreesAndGraphs;
 
+import utils.MinHeapGeneric;
+
+import java.util.Comparator;
+
 public class Algos {
 
     // using MinHeap, descending sort
@@ -109,5 +113,53 @@ public class Algos {
         else {
             return true;
         }
+    }
+
+    // example of input : int[][][] adj = new int[][][] {{{1,4}, {2,8}}, {{0,4},{4,6},{2,3}}, {{0,8},{3,2},{1,3}}, {{2,2},{4,10}}, {{1,6},{3,10}}};
+    public static int[] algoDijkstra(int src, int[][][] adj) {
+        int[] dist = new int[adj.length];
+
+        dist[0] = src;
+
+        for (int i = 1; i < adj.length; i++) {
+            dist[i] = Integer.MAX_VALUE;
+        }
+
+        Comparator<GraphNode> nodeComparator = new Comparator<GraphNode>() {
+            @Override
+            public int compare(GraphNode a, GraphNode b) {
+                return a.distance - b.distance;
+            }
+        };
+
+        MinHeapGeneric<GraphNode> priorityQueue = new MinHeapGeneric<>(nodeComparator);
+
+        GraphNode newNode = new GraphNode(0,0);
+
+        priorityQueue.add(newNode);
+
+        while (!priorityQueue.isEmpty()) {
+            GraphNode node = priorityQueue.pop();
+            if (node != null) {
+                int nodeValue = node.id;
+
+                if(node.distance > dist[nodeValue]) {
+                    continue;
+                }
+
+                for (int[] neighborV : adj[nodeValue]) {
+                    int nodeV = neighborV[0];
+                    int distV = neighborV[1];
+
+                    if(distV + dist[nodeValue] < dist[nodeV]) {
+                        dist[nodeV] = dist[nodeValue] + distV;
+                        newNode = new GraphNode(dist[nodeV], nodeV);
+                        priorityQueue.add(newNode);
+                    }
+                }
+            }
+        }
+
+        return dist;
     }
 }

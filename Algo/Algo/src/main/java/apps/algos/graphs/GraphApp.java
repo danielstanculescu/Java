@@ -48,5 +48,29 @@ public class GraphApp {
         g4.createGraphSolution2(edges);
         g4.createGraphSolution3(3, edges);
         g4.createGraphSolution4(3, edges);
+
+        // Traversal
+
+        DepthFirstSearch dfs = new DepthFirstSearch();
+        dfs.runDFS("A");
+
+        DisconnectedDFS dDfs = new DisconnectedDFS();
+        dDfs.dfsDisconnected();
+
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
+        bfs.runConnectedBFS("A");
+
+        DisconnectedBFS dBfs = new DisconnectedBFS();
+        dBfs.bfsDisconnected();
+
+        GraphBFS gBfs = new GraphBFS(5);
+        gBfs.addEdge(0, 1);
+        gBfs.addEdge(0, 2);
+        gBfs.addEdge(1, 3);
+        gBfs.addEdge(1, 4);
+        gBfs.addEdge(2, 4);
+
+        gBfs.performBFS(0);
+
     }
 }

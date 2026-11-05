@@ -39,6 +39,45 @@ public class Main {
 
         tab = new int[] {20, 30, 40};
         Utils.createBst(tab);
+        System.out.println();
+
+        // ------
+
+        int[][][] graph = new int[][][] {{{1,4}, {2,8}}, {{0,4},{4,6},{2,3}}, {{0,8},{3,2},{1,3}}, {{2,2},{4,10}}, {{1,6},{3,10}}};
+        int[] shortestDistance = Algos.algoDijkstra(0, graph);
+        System.out.print(Utils.toString(shortestDistance));
+        System.out.println();
+
+        int totalVertices = 5;
+        DijkstraGraph graph2 = new DijkstraGraph(totalVertices);
+        graph2.addEdge(0,1,9);
+        graph2.addEdge(0,2,6);
+        graph2.addEdge(1,2,2);
+        graph2.addEdge(1,3,3);
+        graph2.addEdge(2,3,8);
+        graph2.addEdge(3,4,1);
+
+        int sourceNode = 0;
+        int[] sp = graph2.computeShortestPath(sourceNode);
+        graph2.printShortestDistance(sourceNode, sp);
+
+        // ------
+
+        GraphSearch graph3 = new GraphSearch(7);
+
+        graph3.addEdge(0,1);
+        graph3.addEdge(0,2);
+        graph3.addEdge(1,3);
+        graph3.addEdge(1,4);
+        graph3.addEdge(1,5);
+        graph3.addEdge(2,6);
+        graph3.addEdge(3,6);
+
+        boolean found = graph3.findConnection(0,6);
+        System.out.println("Connection found? -> " + found);
+
+
+
 
     }
 }
