@@ -162,4 +162,24 @@ public class Algos {
 
         return dist;
     }
+
+    // Given a sorted array in ascending order of unique elements,
+    // create a BST of min height
+    public static Node transformMinHeightBST(int[] arr) {
+
+        return recursiveBST (arr, 0, arr.length - 1);
+    }
+
+    private static Node recursiveBST(int[] arr, int start, int end) {
+
+        if (start > end)
+            return null;
+
+        int mid = (start + end) / 2;
+        Node node = new Node(arr[mid]);
+        node.left = recursiveBST(arr, start, mid - 1);
+        node.right = recursiveBST(arr, mid + 1, end);
+
+        return node;
+    }
 }

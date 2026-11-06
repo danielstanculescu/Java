@@ -1,5 +1,9 @@
 package apps.TreesAndGraphs;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Utils {
 
     public static void heapifyMinHeap (int[] tab, int n, int i) {
@@ -162,6 +166,54 @@ public class Utils {
         root.right = buildTree(arr, 2*index+2);
 
         return root;
+    }
+
+    public static void printTree(Node root) {
+        System.out.println("Prints the tree");
+
+        if(root == null){
+            System.out.println("The tree is empty");
+        }
+
+        //printTreeDFS(root);
+        printTreeBFS(root);
+    }
+
+    private static void printTreeDFS(Node current) {
+
+        recursePrintTree(current);
+    }
+
+    private static void recursePrintTree(Node current) {
+        if(current == null){
+            return;
+        }
+
+        System.out.print(current.data + " ");
+        recursePrintTree(current.left);
+        recursePrintTree(current.right);
+    }
+
+    private static void printTreeBFS(Node current) {
+
+        Node nl, nr, node;
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(current);
+
+        while(!queue.isEmpty()) {
+            node = queue.poll();
+            if (node != null) {
+                System.out.print(node.data + " ");
+
+                if ((nl = node.left) != null) {
+                    queue.add(nl);
+                }
+                if ((nr = node.right) != null) {
+                    queue.add(nr);
+                }
+            }
+        }
+
     }
 }
 

@@ -73,9 +73,15 @@ public class Main {
         graph3.addEdge(2,6);
         graph3.addEdge(3,6);
 
-        boolean found = graph3.findConnection(0,6);
+        boolean found = graph3.findConnectionBFS(0,6);
         System.out.println("Connection found? -> " + found);
 
+        found = graph3.findConnectionDFS(0,6);
+        System.out.println("Connection found? -> " + found);
+
+        // -------
+        Node tree = Algos.transformMinHeightBST(new int[]{1,2,3,4,5,6});
+        Utils.printTree(tree);
 
 
 

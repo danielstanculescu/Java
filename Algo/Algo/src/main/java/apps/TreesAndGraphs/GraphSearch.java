@@ -1,9 +1,6 @@
 package apps.TreesAndGraphs;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 // find whether there is a connexion between two nodes
 public class GraphSearch {
@@ -21,7 +18,7 @@ public class GraphSearch {
         aL.get(source).add(target);
     }
 
-    public boolean findConnection (int from, int to) {
+    public boolean findConnectionBFS (int from, int to) {
 
         Queue<Integer> queue = new LinkedList<>();
 
@@ -36,6 +33,38 @@ public class GraphSearch {
                 }
 
                 queue.add(v);
+            }
+        }
+
+        return false;
+    }
+
+    public boolean findConnectionDFS (int from, int to) {
+
+        if(from == to){
+            return true;
+        }
+
+        Set<Integer> visited = new HashSet<>();
+
+        return dfsRecursive(from, to, visited);
+    }
+
+    private boolean dfsRecursive(int node, int to, Set<Integer> visited){
+
+        boolean found = false;
+        visited.add(node);
+
+        for (int v: aL.get(node)) {
+            if(!visited.contains(v)){
+                if(v == to) {
+                    return true;
+                }
+
+                found = dfsRecursive(v, to, visited);
+                if(found){
+                    return true;
+                }
             }
         }
 
